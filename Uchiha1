@@ -1,0 +1,161 @@
+Esse -- XxHub - Criado por Davi Bernardo e Arthur
+
+local Player = game.Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+-- GUI principal
+local gui = Instance.new("ScreenGui")
+gui.Parent = PlayerGui
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 600, 0, 380)
+main.Position = UDim2.new(0.5, -300, 0.5, -190)
+main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 12)
+
+-- Título
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+title.Text = "XxHub"
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.TextScaled = true
+title.Parent = main
+Instance.new("UICorner", title).CornerRadius = UDim.new(0, 12)
+
+-- Frame das categorias
+local categories = Instance.new("Frame")
+categories.Size = UDim2.new(0, 150, 1, -40)
+categories.Position = UDim2.new(0, 0, 0, 40)
+categories.BackgroundColor3 = Color3.fromRGB(20,20,20)
+categories.Parent = main
+Instance.new("UICorner", categories).CornerRadius = UDim.new(0, 12)
+
+local catList = Instance.new("UIListLayout", categories)
+catList.Padding = UDim.new(0, 8)
+catList.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- Área das páginas
+local pages = Instance.new("Frame")
+pages.Size = UDim2.new(1, -160, 1, -50)
+pages.Position = UDim2.new(0, 160, 0, 45)
+pages.BackgroundTransparency = 1
+pages.Parent = main
+
+local function createPage(name)
+local page = Instance.new("Frame")
+page.Size = UDim2.new(1,0,1,0)
+page.BackgroundTransparency = 1
+page.Visible = false
+page.Name = name
+page.Parent = pages
+return page
+end
+
+
+---
+
+-- Página Informações
+
+local infoPage = createPage("Informações")
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, 0, 1, 0)
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.ScrollBarThickness = 6
+scroll.BackgroundTransparency = 1
+scroll.Parent = infoPage
+
+local infoText = Instance.new("TextLabel")
+infoText.Size = UDim2.new(1, -20, 0, 300)
+infoText.Position = UDim2.new(0, 10, 0, 10)
+infoText.BackgroundTransparency = 1
+infoText.TextColor3 = Color3.fromRGB(255,255,255)
+infoText.TextSize = 20
+infoText.TextWrapped = true
+infoText.Text = "esse hub chamado Xxhub criado pelo Davi Bernardo e Arthur são os dois criadores do hub use com sabedoria o hub e com boas intenções"
+infoText.Parent = scroll
+
+scroll.CanvasSize = UDim2.new(0, 0, 0, infoText.AbsoluteSize.Y + 20)
+
+
+---
+
+-- Página Scripts
+
+local scriptsPage = createPage("Scripts")
+
+local scriptsList = Instance.new("UIListLayout")
+scriptsList.Parent = scriptsPage
+scriptsList.Padding = UDim.new(0, 10)
+scriptsList.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- Função para criar botões
+local function createScriptButton(name, callback)
+local btn = Instance.new("TextButton")
+btn.Size = UDim2.new(1, -20, 0, 45)
+btn.Position = UDim2.new(0, 10, 0, 0)
+btn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+btn.Text = name
+btn.TextColor3 = Color3.fromRGB(255,255,255)
+btn.TextScaled = true
+Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
+btn.Parent = scriptsPage
+btn.MouseButton1Click:Connect(callback)
+end
+
+-- Botão Fly
+createScriptButton("Fly", function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Fly-ThZ-V4-26213"))()
+end)
+
+-- Botão cartola:b
+createScriptButton("cartola:b", function()
+loadstring(game:HttpGet("https://rawscripts.net/raw/Brookhaven-RP-Cartola-Hub-58122"))()
+end)
+
+
+---
+
+-- Botões de categorias
+
+local function createCatButton(name)
+local btn = Instance.new("TextButton")
+btn.Size = UDim2.new(1, -10, 0, 40)
+btn.BackgroundColor3 = Color3.fromRGB(35,35,35)
+btn.Text = name
+btn.TextScaled = true
+btn.TextColor3 = Color3.fromRGB(255,255,255)
+btn.Parent = categories
+Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
+return btn
+end
+
+local infoButton = createCatButton("Informações")
+local scriptsButton = createCatButton("Scripts")
+
+
+---
+
+-- Troca de páginas
+
+local function showPage(pageName)
+for _, p in pairs(pages:GetChildren()) do
+p.Visible = false
+end
+pages[pageName].Visible = true
+end
+
+infoButton.MouseButton1Click:Connect(function()
+showPage("Informações")
+end)
+
+scriptsButton.MouseButton1Click:Connect(function()
+showPage("Scripts")
+end)
+
+showPage("Informações")k
